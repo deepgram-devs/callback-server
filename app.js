@@ -11,7 +11,7 @@ app.post("/hook", (req, res) => {
         - Trigger an email or SMS
         - Automatically schedule an event on your application's UI
     */
-
+    console.log("File sent to server.")
     console.log(req.body); // See the data
     res.status(200).end(); // Return empty response to Deepgram
 });
