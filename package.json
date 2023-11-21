@@ -1,0 +1,23 @@
+{
+  "name": "callback-server",
+  "version": "1.0.0",
+  "description": "A simple Node server with a webhook consumer for receiving transcript requests with the callback feature",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepgram-devs/callback-server.git"
+  },
+  "author": "Sandra Rodgers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deepgram-devs/callback-server/issues"
+  },
+  "homepage": "https://github.com/deepgram-devs/callback-server#readme",
+  "dependencies": {
+    "dot-env": "^0.0.1",
+    "express": "^4.18.2"
+  }
+}
