@@ -1,6 +1,6 @@
-# Repo Name
+# Callback Server
 
-A repository template for open-source demos, guides and sample apps. Description here.
+A node.js server with a /hook endpoint to handle a callback request and a /transcription endpoint to send back the transciption from the callback request.
 
 ## Development and Contributing
 
