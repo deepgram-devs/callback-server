@@ -1,40 +1,42 @@
 const express = require("express");
 const app = express();
-app.use(express.json());
-
-let transcription = "";
+const axios = require("axios");
+app.use(express.json({ limit: "2MB" }));
 
 // Route handler for webhook
 app.post("/hook", (req, res) => {
   console.log("File sent to server.");
-  console.log(req.body);
-  transcription = "";
+  let transcription = "";
 
-  if (
-    req.body.results &&
-    req.body.results.channels &&
-    req.body.results.channels[0] &&
-    req.body.results.channels[0].alternatives &&
-    req.body.results.channels[0].alternatives[0] &&
-    req.body.results.channels[0].alternatives[0].transcript
-  ) {
-    transcription = req.body.results.channels[0].alternatives[0].transcript;
+  const transcript =
+    req.body?.results?.channels?.[0]?.alternatives?.[0]?.transcript;
+
+  if (transcript) {
+    transcription = req.body;
     console.log("transcription", transcription);
+    sendTranscriptionToZapier(transcription);
   } else {
     transcription = "No transcription available.";
     console.log("No transcription available.");
   }
 });
 
-app.get("/transcription", (req, res) => {
-  console.log("getting transcription", transcription);
-  if (transcription.length > 0) {
-    res.json(transcription);
-    transcription = "";
-  } else {
-    res.json("No transcription available.");
-  }
-});
+// Function to send transcription data to Zapier
+function sendTranscriptionToZapier(transcription) {
+  console.log("Sending transcription data to Zapier");
+  axios
+    .post("WEBHOOK_URL_HERE", transcription)
+    .then((response) => {
+      console.log("Successfully sent transcription data to Zapier");
+      console.log("Zapier response:", response.data);
+    })
+    .catch((error) => {
+      console.error(
+        "Error sending transcription data to Zapier:",
+        error.message
+      );
+    });
+}
 
 // Start express server
 const PORT = 3000;
